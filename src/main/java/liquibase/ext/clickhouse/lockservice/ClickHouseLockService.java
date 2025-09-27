@@ -2,7 +2,7 @@
  * #%L
  * Liquibase extension for Clickhouse
  * %%
- * Copyright (C) 2020 - 2022 Mediarithmics
+ * Copyright (C) 2020 - 2025 Mediarithmics
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ import liquibase.ext.clickhouse.database.ClickHouseDatabase;
 
 import liquibase.Scope;
 import liquibase.database.Database;
-import liquibase.exception.DatabaseException;
 import liquibase.exception.LiquibaseException;
 import liquibase.exception.UnexpectedLiquibaseException;
 import liquibase.executor.Executor;
@@ -67,23 +66,26 @@ public class ClickHouseLockService extends StandardLockService {
     return isLockTableInitialized;
   }
 
-  @Override
-  public boolean hasDatabaseChangeLogLockTable() {
-    boolean hasTable = false;
-    try {
-      String query =
-          String.format(
-              "SELECT ID FROM `%s`.%s LIMIT 1",
-              database.getDefaultSchemaName(), database.getDatabaseChangeLogLockTableName());
-      getExecutor().execute(new RawSqlStatement(query));
-      hasTable = true;
-    } catch (DatabaseException e) {
-      getLogger()
-          .info(
-              String.format("No %s table available", database.getDatabaseChangeLogLockTableName()));
-    }
-    return hasTable;
-  }
+  //    @Override
+  //    public boolean hasDatabaseChangeLogLockTable() {
+  //        boolean hasTable = false;
+  //        try {
+  //            String query =
+  //                String.format(
+  //                    "SELECT ID FROM `%s`.%s LIMIT 1",
+  //                    database.getDefaultSchemaName(),
+  // database.getDatabaseChangeLogLockTableName()
+  //                );
+  //            getExecutor().execute(new RawSqlStatement(query));
+  //            hasTable = true;
+  //        } catch (DatabaseException e) {
+  //            getLogger()
+  //                .info(
+  //                    String.format("No %s table available",
+  // database.getDatabaseChangeLogLockTableName()));
+  //        }
+  //        return hasTable;
+  //    }
 
   private Executor getExecutor() {
     return Scope.getCurrentScope()
