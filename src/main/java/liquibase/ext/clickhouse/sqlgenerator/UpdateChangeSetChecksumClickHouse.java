@@ -2,7 +2,7 @@
  * #%L
  * Liquibase extension for Clickhouse
  * %%
- * Copyright (C) 2020 - 2024 Mediarithmics
+ * Copyright (C) 2020 - 2026 Mediarithmics
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,7 +57,7 @@ public class UpdateChangeSetChecksumClickHouse extends UpdateChangeSetChecksumGe
                 + "UPDATE MD5SUM = '%s' WHERE ID = '%s' AND AUTHOR = '%s' AND FILENAME = '%s' SETTINGS mutations_sync = 1",
             database.getDefaultSchemaName(),
             database.getDatabaseChangeLogTableName(),
-            changeSet.generateCheckSum().toString(),
+            changeSet.generateCheckSum(null).toString(),
             changeSet.getId(),
             changeSet.getAuthor(),
             changeSet.getFilePath());

@@ -2,7 +2,7 @@
  * #%L
  * Liquibase extension for ClickHouse
  * %%
- * Copyright (C) 2020 - 2024 Mediarithmics
+ * Copyright (C) 2020 - 2026 Mediarithmics
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -111,8 +111,8 @@ public class ParamsLoader {
       LOG.info(
           "The following properties should be defined: " + getMissingProperties(new HashSet<>()));
     } catch (InvalidPropertiesFormatException e) {
-      LOG.severe(getStackTrace(e));
-      LOG.severe("Work in single-instance clickhouse mode.");
+      LOG.warning("Invalid cluster configuration: " + e.getMessage());
+      LOG.info("Work in single-instance clickhouse mode.");
     }
 
     return result;
